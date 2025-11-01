@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/suckless.nix
       inputs.home-manager.nixosModules.default
     ];
 
@@ -64,7 +65,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh];
+    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh tealdeer];
     shell = pkgs.zsh;
   };
 
