@@ -64,7 +64,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam];
+    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh];
     shell = pkgs.zsh;
   };
 
