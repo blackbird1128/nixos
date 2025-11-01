@@ -64,7 +64,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam ];
+    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam];
     shell = pkgs.zsh;
   };
 
@@ -112,7 +112,6 @@
     xclip
     stow
     zsh
-    dunst
     rofi
     direnv
     enchant

@@ -15,10 +15,15 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
+  xsession.enable = true;
+  xsession.windowManager.command = "i3";
+  
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+
+    pkgs.st
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -109,6 +114,14 @@
   };
   programs.htop.enable = true;
   programs.ripgrep.enable = true;
+
+
+  services.picom = {
+    enable = true;
+    vSync = true;
+    backend = "glx";
+    extraArgs = [ "--experimental-backends" ];
+  };
 
   services.dunst = {
     enable = true;
