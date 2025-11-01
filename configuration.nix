@@ -123,9 +123,9 @@
     playerctl
     killall
     perl
-    xfce.thunar
-    xfce.thunar-archive-plugin
+    gvfs
     ntfs3g
+    file-roller
     p7zip
     gnumake
     gmp
@@ -136,6 +136,14 @@
     brightnessctl
     sysstat
   ];
+
+  programs.thunar  = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -182,6 +190,9 @@
   };
   
   services.displayManager.defaultSession = "none+i3";
+
+  services.gvfs.enable = true; # Mount, trash, and other functionalities
+  services.tumbler.enable = true; # Thumbnail support for images
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
