@@ -135,6 +135,8 @@
     pulseaudio
     brightnessctl
     sysstat
+    imagemagick
+    slop
   ];
 
   programs.thunar  = {
