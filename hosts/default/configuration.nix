@@ -128,7 +128,6 @@
     hunspell
     hunspellDicts.en-us
     hunspellDicts.fr-moderne
-    enchant2
     libnotify
     playerctl
     killall
@@ -138,8 +137,6 @@
     file-roller
     p7zip
     gnumake
-    gmp
-    pkg-config
     python3
     acpi
     pulseaudio
@@ -187,6 +184,7 @@
 
     windowManager.i3 = {
       enable = true;
+      package = pkgs.i3;
       extraPackages = with pkgs; [dmenu i3status i3blocks i3lock];
    };
 
