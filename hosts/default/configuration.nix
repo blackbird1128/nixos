@@ -65,7 +65,16 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh tealdeer];
+    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh tealdeer
+    (texlive.withPackages (ps: with ps; [
+      scheme-full
+      wrapfig
+      capt-of
+      preprint
+      titling
+      enumitem
+      hyperref
+    ]))];
     shell = pkgs.zsh;
   };
 
@@ -138,6 +147,7 @@
     sysstat
     imagemagick
     slop
+    emacs.pkgs.jinx
   ];
 
   programs.thunar  = {
