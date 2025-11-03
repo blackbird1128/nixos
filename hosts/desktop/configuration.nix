@@ -8,54 +8,18 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../common/common.nix
       ../../modules/suckless.nix
       inputs.home-manager.nixosModules.default
     ];
 
   environment.pathsToLink = ["/libexec" ];
-  
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "fr";
-    variant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "fr";
 
   programs.zsh.enable = true;
 
@@ -79,20 +43,22 @@
     shell = pkgs.zsh;
   };
 
-  home-manager = {
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; 
+  hardware.nvidia.open = false;  #
 
-    extraSpecialArgs = { inherit inputs;};
-    users = {
-      "alexj" = import ../../modules/home.nix;
+  fonts = {
+    fontconfig = {
+      antialias = true;
+      hinting.enable = true;
+      hinting.autohint = false;
+      hinting.style = "slight";
+      subpixel.rgba = "none";
+      subpixel.lcdfilter = "light";
     };
-
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  fonts.packages = with pkgs; [ nerd-fonts.iosevka jetbrains-mono ];
-
+  
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -118,110 +84,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    gcc
-    wget
-    xclip
-    stow
-    zsh
-    rofi
-    direnv
-    enchant
-    hunspell
-    hunspellDicts.en-us
-    hunspellDicts.fr-moderne
-    libnotify
-    playerctl
-    killall
-    perl
-    gvfs
-    ntfs3g
-    file-roller
-    p7zip
-    gnumake
-    python3
-    acpi
-    pulseaudio
-    brightnessctl
-    sysstat
-    imagemagick
-    slop
-    emacs.pkgs.jinx
-    xrandr
-    mons
   ];
-
-  programs.thunar  = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  services.dbus.enable = true;
-
-  programs.dconf.enable = true;
-
   
   services.xserver = {
-    enable = true;
 
-    desktopManager = {
-      xterm.enable = false;
-    };
-
-    displayManager = { lightdm.enable = true;};
-
-    windowManager.i3 = {
-      enable = true;
-      package = pkgs.i3;
-      extraPackages = with pkgs; [dmenu i3status i3blocks i3lock];
-   };
-xrandrHeads = [
-  {
-    output = "HDMI-1";
-    primary = true;
-  }
-  {
-    output = "DVI-D-1";
-  }
-];
+    xrandrHeads = [
+      {
+        output = "HDMI-0";
+        primary = true;
+      }
+      {
+        output = "DVI-D-1";
+      }
+    ];
 
 
- };
-
-  nixpkgs.config.pulseaudio = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
   };
-  
-  services.displayManager.defaultSession = "none+i3";
-
-  services.gvfs.enable = true; # Mount, trash, and other functionalities
-  services.tumbler.enable = true; # Thumbnail support for images
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

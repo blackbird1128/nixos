@@ -116,14 +116,21 @@
   programs.htop.enable = true;
   programs.ripgrep.enable = true;
 
-
   services.picom = {
     enable = true;
-    vSync = true;
     backend = "glx";
+    vSync = true;
+    settings = {
+      glx-no-stencil = true;
+      glx-copy-from-front = false;
+      use-damage = true;
+      # Optional, can improve font rendering on some GPUs:
+      unredir-if-possible = false;
+    };
     extraArgs = [ "--experimental-backends" ];
   };
 
+  
   services.dunst = {
     enable = true;
 
