@@ -64,7 +64,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh tealdeer
+    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer
     (texlive.withPackages (ps: with ps; [
       scheme-full
       wrapfig
@@ -81,7 +81,7 @@
 
     extraSpecialArgs = { inherit inputs;};
     users = {
-      "alexj" = import ../../home-manager/common.nix
+      "alexj" = import ./home.nix;
     };
 
   };
