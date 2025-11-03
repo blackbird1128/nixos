@@ -105,6 +105,13 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+    };
+  };
+
 
   programs.fzf.enable = true;
   
