@@ -81,7 +81,7 @@
 
     extraSpecialArgs = { inherit inputs;};
     users = {
-      "alexj" = import ../../modules/home.nix;
+      "alexj" = import ../../home-manager/common.nix
     };
 
   };

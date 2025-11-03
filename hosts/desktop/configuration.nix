@@ -42,6 +42,15 @@
     shell = pkgs.zsh;
   };
 
+  home-manager = {
+
+    extraSpecialArgs = { inherit inputs;};
+    users = {
+      "alexj" = import ./home.nix;
+    };
+
+  };
+
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; 

@@ -67,14 +67,7 @@
 #    ]))];
   };
 
-  home-manager = {
 
-    extraSpecialArgs = { inherit inputs;};
-    users = {
-      "alexj" = import ../../modules/home.nix;
-    };
-
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
