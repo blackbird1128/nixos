@@ -55,6 +55,33 @@
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer
+  (pkgs.texlive.combine {
+    inherit (pkgs.texlive)
+      scheme-small
+      babel
+      babel-french
+      csquotes
+      fontspec
+      siunitx
+      physics
+      booktabs
+      caption
+      geometry
+      fancyhdr
+      hyperref
+      xcolor
+      listings
+      minted
+      biblatex
+      biber
+      microtype
+      titlesec
+      enumitem
+      soul
+      collection-mathscience # <-- gives amsmath, amssymb, mathtools, etc.
+      collection-pictures
+      collection-fontsrecommended; # Computer Modern & standard LaTeX fonts
+  })
 #    (texlive.withPackages (ps: with ps; [
 #      scheme-medium
 #      wrapfig
@@ -145,6 +172,7 @@
     emacs.pkgs.jinx
     xrandr
     mons
+    jq
     fontconfig
     freetype
     cairo
