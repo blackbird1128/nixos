@@ -2,11 +2,12 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      inputs.home-manager.nixosModules.default
-    ];
+    [ inputs.home-manager.nixosModules.default ];
 
   environment.pathsToLink = ["/libexec" ];
+
+  nix.settings.allowed-users = [ "@wheel" ];
+  security.sudo.execWheelOnly = true;
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Bootloader.
@@ -19,6 +20,20 @@
   networking.networkmanager.enable = true;
 
 
+  services.dnscrypt-proxy = {
+    enable = true;
+    settings = {
+      server_names = [  "plan9dns-nj.ipv6" "a-and-a" "doh.ffmuc.net"];
+      listen_addresses = [ "127.0.0.1:53" ];
+      require_dnssec = true;
+      # Optional: force DoH only
+      doh_servers = true;
+    };
+  };
+
+  networking.nameservers = [ "127.0.0.1" ];
+  services.resolved.enable = false; # Avoid conflicts
+  
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
@@ -48,6 +63,11 @@
 
   programs.zsh.enable = true;
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alexj = {
@@ -148,7 +168,6 @@
     stow
     zsh
     rofi
-    direnv
     enchant
     hunspell
     hunspellDicts.en-us
@@ -161,6 +180,7 @@
     ntfs3g
     file-roller
     p7zip
+    zip
     gnumake
     python3
     acpi
@@ -241,8 +261,6 @@
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
