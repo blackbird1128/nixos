@@ -162,42 +162,42 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    gcc
-    wget
-    xclip
-    stow
-    zsh
-    rofi
+    acpi
+    brightnessctl
+    cairo
+    emacs.pkgs.jinx
     enchant
+    file-roller
+    fontconfig
+    freetype
+    gcc
+    gnumake
+    gvfs
+    harfbuzz
     hunspell
     hunspellDicts.en-us
     hunspellDicts.fr-moderne
-    libnotify
-    playerctl
-    killall
-    perl
-    gvfs
-    ntfs3g
-    file-roller
-    p7zip
-    zip
-    gnumake
-    python3
-    acpi
-    pulseaudio
-    brightnessctl
-    sysstat
     imagemagick
-    slop
-    emacs.pkgs.jinx
-    xrandr
-    mons
     jq
-    fontconfig
-    freetype
-    cairo
+    killall
+    libnotify
     libxft
-    harfbuzz
+    mons
+    ntfs3g
+    p7zip
+    perl
+    playerctl
+    pulseaudio
+    python3
+    rofi
+    slop
+    stow
+    sysstat
+    wget
+    xclip
+    xrandr
+    zip
+    zsh
   ];
 
   programs.thunar  = {
