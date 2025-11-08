@@ -28,7 +28,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam gh tealdeer ani-cli];
+    packages = with pkgs; [ani-cli];
     shell = pkgs.zsh;
   };
 
@@ -47,7 +47,6 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; 

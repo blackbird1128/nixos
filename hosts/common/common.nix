@@ -14,8 +14,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -101,17 +99,8 @@
       collection-mathscience # <-- gives amsmath, amssymb, mathtools, etc.
       collection-pictures
       collection-fontsrecommended; # Computer Modern & standard LaTeX fonts
-  })
-#    (texlive.withPackages (ps: with ps; [
-#      scheme-medium
-#      wrapfig
-#      capt-of
-#      preprint
-#      titling
-#      enumitem
-#      hyperref
-];
-#    ]))];
+  })];
+
   };
 
 
