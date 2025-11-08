@@ -17,6 +17,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -29,7 +30,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer];
+    packages = with pkgs; [ani-cli aria2];
     shell = pkgs.zsh;
   };
 
@@ -42,6 +43,12 @@
 
   };
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+  
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -68,7 +75,25 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   ];
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 20;
+
+      # Optional helps save long term battery health
+      START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+      STOP_CHARGE_THRESH_BAT0 = 80;  # 80 and above it stops charging
+    };
+  };
+
   
+  services.upower.enable = true;
+  services.auto-cpufreq.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
