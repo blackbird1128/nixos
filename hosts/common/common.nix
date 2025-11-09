@@ -152,6 +152,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     acpi
+    alsa-utils
     brightnessctl
     cairo
     emacs.pkgs.jinx
@@ -171,6 +172,7 @@
     killall
     libnotify
     libxft
+    lm_sensors
     mons
     ntfs3g
     p7zip

@@ -134,7 +134,6 @@
       # Optional, can improve font rendering on some GPUs:
       unredir-if-possible = false;
     };
-    extraArgs = [ "--experimental-backends" ];
   };
 
   
