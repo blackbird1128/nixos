@@ -19,6 +19,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
+
   networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
@@ -76,6 +77,14 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=60min
+  '';
+  
+  
+  powerManagement.enable = true;  
   services.tlp = {
     enable = true;
     settings = {
@@ -86,14 +95,13 @@
       CPU_MAX_PERF_ON_BAT = 20;
 
       # Optional helps save long term battery health
-      START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-      STOP_CHARGE_THRESH_BAT0 = 80;  # 80 and above it stops charging
+      START_CHARGE_THRESH_BAT1 = 40; # 40 and bellow it starts to charge
+      STOP_CHARGE_THRESH_BAT1 = 80;  # 80 and above it stops charging
     };
   };
 
   
   services.upower.enable = true;
-  services.auto-cpufreq.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
