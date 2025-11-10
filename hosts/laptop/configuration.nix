@@ -17,7 +17,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  boot.kernelParams = [ "mem_sleep_default=deep" "apm=on" "acpi=on" ];
 
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -75,15 +75,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    acpi acpid xss-lock
   ];
 
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
   services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
+  services.logind.settings.Login.IdleAction = "suspend-then-hibernate";
+  services.logind.settings.Login.IdleActionSec = "300";
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=60min
   '';
   
-  
+  services.acpid.enable = true;
   powerManagement.enable = true;  
   services.tlp = {
     enable = true;
