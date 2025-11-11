@@ -123,8 +123,6 @@
       jetbrains-mono
     ];
   };
-
-
   
   hardware.bluetooth = {
     enable = true;
