@@ -17,20 +17,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # services.dnscrypt-proxy = {
+  #   enable = true;
+  #   settings = {
+  #     server_names = [  "plan9dns-nj.ipv6" "a-and-a" "doh.ffmuc.net"];
+  #     listen_addresses = [ "127.0.0.1:53" ];
+  #     require_dnssec = true;
+  #     # Optional: force DoH only
+  #     doh_servers = true;
+  #   };
+  # };
 
-  services.dnscrypt-proxy = {
-    enable = true;
-    settings = {
-      server_names = [  "plan9dns-nj.ipv6" "a-and-a" "doh.ffmuc.net"];
-      listen_addresses = [ "127.0.0.1:53" ];
-      require_dnssec = true;
-      # Optional: force DoH only
-      doh_servers = true;
-    };
-  };
-
-  networking.nameservers = [ "127.0.0.1" ];
-  services.resolved.enable = false; # Avoid conflicts
+  # networking.nameservers = [ "127.0.0.1" ];
+  # services.resolved.enable = false; # Avoid conflicts
   
   # Set your time zone.
   time.timeZone = "Europe/Paris";
