@@ -17,19 +17,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # services.dnscrypt-proxy = {
-  #   enable = true;
-  #   settings = {
-  #     server_names = [  "plan9dns-nj.ipv6" "a-and-a" "doh.ffmuc.net"];
-  #     listen_addresses = [ "127.0.0.1:53" ];
-  #     require_dnssec = true;
-  #     # Optional: force DoH only
-  #     doh_servers = true;
-  #   };
-  # };
+  services.dnscrypt-proxy = {
+    enable = true;
+    settings = {
+      server_names = [  "plan9dns-nj.ipv6" "a-and-a" "doh.ffmuc.net"];
+      listen_addresses = [ "127.0.0.1:53" ];
+      require_dnssec = true;
+      # Optional: force DoH only
+      doh_servers = true;
+    };
+  };
 
-  # networking.nameservers = [ "127.0.0.1" ];
-  # services.resolved.enable = false; # Avoid conflicts
+  networking.nameservers = [ "127.0.0.1" ];
+  services.resolved.enable = false; # Avoid conflicts
   
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -71,35 +71,9 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer
-  (pkgs.texlive.combine {
-    inherit (pkgs.texlive)
-      scheme-small
-      babel
-      babel-french
-      csquotes
-      fontspec
-      siunitx
-      physics
-      booktabs
-      caption
-      geometry
-      fancyhdr
-      hyperref
-      xcolor
-      listings
-      minted
-      biblatex
-      biber
-      microtype
-      titlesec
-      enumitem
-      soul
-      collection-mathscience # <-- gives amsmath, amssymb, mathtools, etc.
-      collection-pictures
-      collection-fontsrecommended; # Computer Modern & standard LaTeX fonts
-  })];
-
+    packages = with pkgs; [
+      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust
+      texliveFull ];
   };
 
 
