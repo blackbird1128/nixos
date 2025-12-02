@@ -28,7 +28,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ani-cli];
+    packages = with pkgs; [ani-cli lutris wineWowPackages.stable winetricks];
     shell = pkgs.zsh;
   };
 
