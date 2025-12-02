@@ -100,7 +100,9 @@
       user.email = "37084688+blackbird1128@users.noreply.github.com";
       core.editor = "emacs";
       init.defaultBranch = "main";
-
+      credential = {
+        helper = "!gh auth git-credential";
+      };
     };
   };
 
