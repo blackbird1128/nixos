@@ -72,7 +72,7 @@
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust
+      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust gh
       texliveFull ];
   };
 
@@ -146,6 +146,7 @@
     lm_sensors
     mons
     ntfs3g
+    networkmanagerapplet
     p7zip
     pavucontrol
     perl
