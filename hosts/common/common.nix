@@ -4,8 +4,11 @@
   imports =
     [ inputs.home-manager.nixosModules.default ];
 
+    # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  
   environment.pathsToLink = ["/libexec" ];
-
+  
   nix.settings.allowed-users = [ "@wheel" ];
   security.sudo.execWheelOnly = true;
   
@@ -16,7 +19,24 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 8000 53 5300 ];	
+    allowedUDPPorts = [ 53 5300 ];
+  };
 
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.eth0.forwarding" = 1;    # enable port forwarding
+  };
+  
+  networking = {
+    firewall.extraCommands = ''
+    iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 80 -j REDIRECT --to-port 8000
+    iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 53 -j REDIRECT --to-port 5300
+    iptables -A PREROUTING -t nat -i eth0 -p UDP --dport 53 -j REDIRECT --to-port 5300
+  '';
+  };
+  
   services.dnscrypt-proxy = {
     enable = true;
     settings = {
@@ -58,6 +78,21 @@
   # Configure console keymap
   console.keyMap = "fr";
 
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.alexj = {
+    isNormalUser = true;
+    description = "alexj";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    packages = with pkgs; [
+      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust gh
+      texliveFull ];
+  };
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   programs.zsh.enable = true;
 
   programs.direnv = {
@@ -65,21 +100,6 @@
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alexj = {
-    isNormalUser = true;
-    description = "alexj";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust gh
-      texliveFull ];
-  };
-
-
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   fonts = {
     enableDefaultPackages = true;
