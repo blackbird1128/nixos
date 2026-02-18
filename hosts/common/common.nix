@@ -181,6 +181,8 @@
     xclip
     xrandr
     zip
+    unzip
+    fd
     zsh
   ];
 
