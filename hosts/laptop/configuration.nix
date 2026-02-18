@@ -31,7 +31,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ani-cli aria2 zotero];
+    packages = with pkgs; [ani-cli aria2 zotero buku codex];
     shell = pkgs.zsh;
   };
 
