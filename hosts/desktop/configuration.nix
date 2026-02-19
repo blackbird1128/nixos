@@ -28,7 +28,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ani-cli lutris wineWowPackages.stable winetricks buku];
+    packages = with pkgs; [ani-cli lutris wineWowPackages.stable winetricks buku codex];
     shell = pkgs.zsh;
   };
 
@@ -47,10 +47,18 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
+  programs.gamemode.enable = true;
+
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; 
   hardware.nvidia.open = false;  #
+
+  services.xserver.screenSection = ''
+  Option "metamodes" "HDMI-0: 1920x1080 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DVI-D-0: 1920x1080 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+'';
+
+
 
   fonts = {
     fontconfig = {
@@ -98,7 +106,7 @@
         primary = true;
       }
       {
-        output = "DVI-D-1";
+        output = "DVI-D-0";
       }
     ];
 
