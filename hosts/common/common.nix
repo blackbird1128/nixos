@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -13,6 +13,13 @@
   security.sudo.execWheelOnly = true;
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -21,21 +28,25 @@
   networking.networkmanager.enable = true;
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 8000 53 5300 ];	
-    allowedUDPPorts = [ 53 5300 ];
+    allowedTCPPorts = [ 80 53 ];
+    allowedUDPPorts = [ 53 ];
   };
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.eth0.forwarding" = 1;    # enable port forwarding
   };
   
-  networking = {
-    firewall.extraCommands = ''
-    iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 80 -j REDIRECT --to-port 8000
-    iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 53 -j REDIRECT --to-port 5300
-    iptables -A PREROUTING -t nat -i eth0 -p UDP --dport 53 -j REDIRECT --to-port 5300
+  networking.firewall.extraCommands = ''
+    # Generic port redirects for container services.
+    iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
+    iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 5300
+    iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300
   '';
-  };
+  networking.firewall.extraStopCommands = ''
+    iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
+    iptables -t nat -D PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 5300
+    iptables -t nat -D PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300
+  '';
   
   services.dnscrypt-proxy = {
     enable = true;
@@ -119,7 +130,7 @@
   
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = true;
+    powerOnBoot = lib.mkDefault true;
     settings = {
       General = {
         # Shows battery charge of connected devices on supported
@@ -138,6 +149,8 @@
       };
     };
   };
+
+  services.blueman.enable = lib.mkDefault true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -188,7 +201,7 @@
 
   programs.thunar  = {
     enable = true;
-    plugins = with pkgs.xfce; [
+    plugins = with pkgs; [
       thunar-archive-plugin
       thunar-volman
     ];
