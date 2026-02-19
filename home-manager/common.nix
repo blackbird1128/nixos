@@ -120,10 +120,10 @@
     backend = "glx";
     vSync = true;
     settings = {
-      glx-no-stencil = true;
       glx-copy-from-front = false;
-      use-damage = true;
+      use-damage = false;
       # Optional, can improve font rendering on some GPUs:
+      xrender-sync-fence = true;
       unredir-if-possible = false;
     };
   };
