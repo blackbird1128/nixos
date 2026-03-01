@@ -27,7 +27,7 @@
   users.users.alexj = {
     isNormalUser = true;
     description = "alexj";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode"];
     packages = with pkgs; [ani-cli lutris wineWowPackages.stable winetricks buku codex];
     shell = pkgs.zsh;
   };

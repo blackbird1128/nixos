@@ -96,7 +96,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust gh
-      texliveFull ];
+      texliveFull tree-sitter];
   };
 
   virtualisation.docker.rootless = {
