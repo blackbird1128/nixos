@@ -146,6 +146,7 @@
         # adapters present on start as well as adapters that are plugged
         # in later on. Defaults to 'true'.
         AutoEnable = true;
+        AutoConnect = true;
       };
     };
   };
