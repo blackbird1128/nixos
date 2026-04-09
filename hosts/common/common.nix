@@ -198,6 +198,7 @@
     unzip
     fd
     zsh
+    file-roller
   ];
 
   programs.thunar  = {
