@@ -100,7 +100,7 @@
       core.editor = "emacs";
       init.defaultBranch = "main";
       credential = {
-        helper = "!gh auth git-credential";
+        helper = "store --file ~/.git-credentials";
       };
     };
   };
