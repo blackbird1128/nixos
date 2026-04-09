@@ -105,6 +105,11 @@
     };
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.fzf.enable = true;
   
   programs.zoxide = {
