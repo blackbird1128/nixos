@@ -199,6 +199,9 @@
     fd
     zsh
     file-roller
+    git-extras
+    rename
+    mpv
   ];
 
   programs.thunar  = {
