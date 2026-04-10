@@ -162,7 +162,6 @@
     cairo
     emacs.pkgs.jinx
     enchant
-    file-roller
     fontconfig
     freetype
     gcc
@@ -202,6 +201,8 @@
     git-extras
     rename
     mpv
+    graphviz
+    ninja
   ];
 
   programs.thunar  = {
