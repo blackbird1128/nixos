@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common/common.nix
-      inputs.home-manager.nixosModules.default
     ];
 
   environment.pathsToLink = ["/libexec" ];

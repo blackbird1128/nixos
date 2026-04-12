@@ -30,23 +30,16 @@
     enable = true;
     allowedTCPPorts = [ 80 53 ];
     allowedUDPPorts = [ 53 ];
+    redirects = [
+      { proto = "tcp"; fromPort = 80; toPort = 8000; }
+      { proto = "tcp"; fromPort = 53; toPort = 5300; }
+      { proto = "udp"; fromPort = 53; toPort = 5300; }
+    ];
   };
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.eth0.forwarding" = 1;    # enable port forwarding
   };
-  
-  networking.firewall.extraCommands = ''
-    # Generic port redirects for container services.
-    iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
-    iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 5300
-    iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300
-  '';
-  networking.firewall.extraStopCommands = ''
-    iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
-    iptables -t nat -D PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 5300
-    iptables -t nat -D PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300
-  '';
   
   # services.dnscrypt-proxy = {
   #   enable = true;
@@ -249,7 +242,6 @@
 
  };
 
-  nixpkgs.config.pulseaudio = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
