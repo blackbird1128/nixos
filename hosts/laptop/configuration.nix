@@ -19,7 +19,7 @@
   ];
 
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "laptop"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alexj = {
@@ -60,9 +60,9 @@
       IdleActionSec = "5min";
     };
   };
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=60min
-  '';
+  # systemd.sleep.extraConfig = ''
+  #   HibernateDelaySec=60min
+  # '';
   
   services.acpid.enable = true;
   powerManagement.enable = true;  

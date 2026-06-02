@@ -1,9 +1,6 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ inputs.home-manager.nixosModules.default ];
-
     # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
@@ -30,11 +27,6 @@
     enable = true;
     allowedTCPPorts = [ 80 53 ];
     allowedUDPPorts = [ 53 ];
-    redirects = [
-      { proto = "tcp"; fromPort = 80; toPort = 8000; }
-      { proto = "tcp"; fromPort = 53; toPort = 5300; }
-      { proto = "udp"; fromPort = 53; toPort = 5300; }
-    ];
   };
 
   boot.kernel.sysctl = {

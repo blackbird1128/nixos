@@ -11,23 +11,14 @@
       ../common/common.nix
     ];
 
-  environment.pathsToLink = ["/libexec" ];
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nixos"; # Define your hostname.
-
-  programs.zsh.enable = true;
-
+  networking.hostName = "desktop"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alexj = {
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" "gamemode"];
-    packages = with pkgs; [ani-cli lutris wineWowPackages.stable winetricks buku codex];
+    packages = with pkgs; [ani-cli lutris wineWow64Packages.stable winetricks buku codex];
     shell = pkgs.zsh;
   };
 
@@ -59,17 +50,6 @@
 
 
 
-  fonts = {
-    fontconfig = {
-      antialias = true;
-      hinting.enable = true;
-      hinting.autohint = false;
-      hinting.style = "slight";
-      subpixel.rgba = "none";
-      subpixel.lcdfilter = "light";
-    };
-  };
-  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
