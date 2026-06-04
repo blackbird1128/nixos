@@ -3,6 +3,11 @@
 {
     # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
   
   environment.pathsToLink = ["/libexec" ];
   
@@ -17,21 +22,21 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/alexj/.config/nixos";
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 80 53 ];
-    allowedUDPPorts = [ 53 ];
-  };
+  networking.firewall.enable = true;
 
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.eth0.forwarding" = 1;    # enable port forwarding
-  };
+  boot.kernelModules = [ "ntsync" ];
   
   # services.dnscrypt-proxy = {
   #   enable = true;
@@ -79,9 +84,6 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      eza mcfly starship emacs firefox kitty feh bluetuith opam tealdeer dust gh
-      texliveFull tree-sitter];
   };
 
   virtualisation.docker.rootless = {
