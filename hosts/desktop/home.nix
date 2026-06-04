@@ -2,4 +2,13 @@
 
 {
   imports = [../../home-manager/common.nix];
+
+  home.packages = with pkgs; [
+    ani-cli
+    buku
+    codex
+    lutris
+    wineWow64Packages.stable
+    winetricks
+  ];
 }
