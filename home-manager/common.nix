@@ -135,24 +135,80 @@
   services.dunst = {
     enable = true;
 
-    # optional
     settings = {
       global = {
-        font = "Sans 10";
+        monitor = 0;
+        follow = "mouse";
+        width = 360;
+        height = 140;
+        origin = "top-right";
+        offset = "16x40";
+        scale = 0;
+        notification_limit = 5;
+
+        progress_bar = true;
+        progress_bar_height = 8;
+        progress_bar_frame_width = 1;
+        progress_bar_min_width = 160;
+        progress_bar_max_width = 320;
+
+        indicate_hidden = true;
+        transparency = 4;
+        separator_height = 1;
+        padding = 12;
+        horizontal_padding = 14;
+        text_icon_padding = 12;
         frame_width = 2;
-        separator_height = 2;
+        gap_size = 8;
+        corner_radius = 8;
+
+        sort = true;
+        idle_threshold = 120;
+        font = "Sans 10";
+        line_height = 2;
+        markup = "full";
+        format = "<b>%s</b>\\n%b";
+        alignment = "left";
+        vertical_alignment = "center";
+        show_age_threshold = 60;
+        ellipsize = "middle";
+        ignore_newline = false;
+        stack_duplicates = true;
+        hide_duplicate_count = false;
+        show_indicators = false;
+
+        icon_position = "left";
+        min_icon_size = 32;
+        max_icon_size = 48;
+
+        sticky_history = true;
+        history_length = 20;
+
+        browser = "firefox -new-tab";
+        always_run_script = true;
+        title = "Dunst";
+        class = "Dunst";
       };
       urgency_low = {
-        background = "#222222";
-        foreground = "#888888";
+        background = "#282828";
+        foreground = "#a89984";
+        frame_color = "#504945";
+        highlight = "#83a598";
+        timeout = 4;
       };
       urgency_normal = {
-        background = "#285577";
-        foreground = "#ffffff";
+        background = "#32302f";
+        foreground = "#ebdbb2";
+        frame_color = "#98971a";
+        highlight = "#b8bb26";
+        timeout = 7;
       };
       urgency_critical = {
-        background = "#900000";
-        foreground = "#ffffff";
+        background = "#3c3836";
+        foreground = "#fbf1c7";
+        frame_color = "#cc241d";
+        highlight = "#fb4934";
+        timeout = 0;
       };
     };
   };
