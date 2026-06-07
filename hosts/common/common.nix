@@ -231,7 +231,7 @@
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3;
-      extraPackages = with pkgs; [dmenu i3status i3blocks i3lock];
+      extraPackages = with pkgs; [dmenu i3status i3blocks i3lock-color];
     };
 
  };
