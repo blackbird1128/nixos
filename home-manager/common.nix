@@ -56,8 +56,8 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Gruvbox-Dark";
+      package = pkgs.gruvbox-gtk-theme;
     };
   };
 
@@ -199,8 +199,8 @@
       urgency_normal = {
         background = "#32302f";
         foreground = "#ebdbb2";
-        frame_color = "#98971a";
-        highlight = "#b8bb26";
+        frame_color = "#83a598";
+        highlight = "#83a598";
         timeout = 7;
       };
       urgency_critical = {
