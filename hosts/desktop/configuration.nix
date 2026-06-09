@@ -4,6 +4,12 @@
 
 { config, pkgs, inputs, ... }:
 
+let
+  stable = import inputs.nixpkgs-stable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -18,6 +24,7 @@
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" "gamemode"];
+    packages = with pkgs; [ani-cli stable.lutris stable.winetricks buku vulkan-tools ];
     shell = pkgs.zsh;
   };
 
@@ -37,11 +44,16 @@
   };
 
   programs.gamemode.enable = true;
+  programs.gamemode.enableRenice = true;
+  programs.gamescope.enable = true;
 
+  
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; 
-  hardware.nvidia.open = false;  #
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  hardware.nvidia.open = false; 
 
   services.xserver.screenSection = ''
   Option "metamodes" "HDMI-0: 1920x1080 +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DVI-D-0: 1920x1080 +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
@@ -52,6 +64,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    
   ];
   
   services.xserver = {

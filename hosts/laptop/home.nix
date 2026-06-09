@@ -9,7 +9,6 @@
     buku
     codex
     lutris
-    wineWow64Packages.stable
     winetricks
     zotero
   ];
