@@ -140,6 +140,16 @@
 
   services.blueman.enable = lib.mkDefault true;
 
+  # Example for /etc/nixos/configuration.nix
+  services.syncthing = {
+    enable = true;
+    user = "alexj";
+    dataDir = "/home/alexj/.local/state/syncthing";
+    configDir = "/home/alexj/.config/syncthing";
+    openDefaultPorts = true; # Open ports in the firewall for Syncthing. (NOTE: this will not open syncthing gui port)
+  };
+  
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
