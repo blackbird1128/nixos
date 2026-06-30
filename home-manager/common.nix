@@ -36,6 +36,9 @@
     tealdeer
     texliveFull
     tree-sitter
+    television
+    bat
+    caffeine-ng
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
