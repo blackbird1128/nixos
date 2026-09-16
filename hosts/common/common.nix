@@ -101,6 +101,20 @@ in
 
   programs.zsh.enable = true;
 
+  services.kanata = {
+    enable = true;
+    keyboards.default.config = ''
+      (defsrc
+        caps)
+
+      (defalias
+        esctrl (tap-hold 100 100 esc lctrl))
+
+      (deflayer base
+        @esctrl)
+    '';
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
