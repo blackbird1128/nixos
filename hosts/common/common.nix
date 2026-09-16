@@ -1,5 +1,13 @@
 { config, lib, pkgs, ... }:
 
+let
+  codex-src = builtins.fetchTarball {
+    url = "https://github.com/sadjow/codex-cli-nix/archive/5473399086c810de9b985ec165dcb229106ed48d.tar.gz";
+    sha256 = "1dd186icinx8960sld62ahjdrhkxkjscds853iz8966qlgf9g5ls";
+  };
+
+  codex = pkgs.callPackage "${codex-src}/package.nix" { };
+in
 {
     # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -201,6 +209,7 @@
     mpv
     graphviz
     ninja
+    codex
   ];
 
   programs.thunar  = {
