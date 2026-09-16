@@ -5,6 +5,7 @@
   # manage.
   home.username = "alexj";
   home.homeDirectory = "/home/alexj";
+  home.sessionPath = [ "$HOME/.local/bin" ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -67,7 +68,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "gtk3";
   };
 
 
