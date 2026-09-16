@@ -63,6 +63,13 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
+  location.provider = "geoclue2";
+
+  services.redshift = {
+    enable = true;
+    extraOptions = [ "-r" ];
+  };
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
