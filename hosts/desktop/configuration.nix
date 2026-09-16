@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   stable = import inputs.nixpkgs-stable {
@@ -46,6 +46,18 @@ in
   programs.gamemode.enable = true;
   programs.gamemode.enableRenice = true;
   programs.gamescope.enable = true;
+
+  services.power-profiles-daemon.enable = true;
+  powerManagement = {
+    enable = true;
+    # cpuFreqGovernor = lib.mkDefault "powersave";
+  };
+
+  boot.kernelParams = [ "intel_pstate=active" ];
+
+  services.thermald.enable = true;
+  services.irqbalance.enable = true;
+  systemd.oomd.enable = true;
 
   
   hardware.graphics.enable = true;
