@@ -7,9 +7,7 @@
     ani-cli
     aria2
     buku
-    codex
     lutris
     winetricks
-    zotero
   ];
 }
