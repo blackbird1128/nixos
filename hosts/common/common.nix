@@ -167,6 +167,7 @@
     harfbuzz
     hunspell
     hunspellDicts.en-us
+    hunspellDicts.en-gb-ise
     hunspellDicts.fr-moderne
     imagemagick
     jq
