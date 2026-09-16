@@ -4,12 +4,6 @@
 
 { config, lib, pkgs, inputs, ... }:
 
-let
-  stable = import inputs.nixpkgs-stable {
-    system = pkgs.system;
-    config.allowUnfree = true;
-  };
-in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -24,7 +18,6 @@ in
     isNormalUser = true;
     description = "alexj";
     extraGroups = [ "networkmanager" "wheel" "gamemode"];
-    packages = with pkgs; [ani-cli stable.lutris stable.winetricks buku vulkan-tools ];
     shell = pkgs.zsh;
   };
 
