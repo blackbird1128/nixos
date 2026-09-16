@@ -220,6 +220,7 @@ in
     wget
     xclip
     xrandr
+    xss-lock
     zip
     unzip
     fd
