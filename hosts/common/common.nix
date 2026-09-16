@@ -91,7 +91,7 @@ in
   users.users.alexj = {
     isNormalUser = true;
     description = "alexj";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   virtualisation.docker.rootless = {
