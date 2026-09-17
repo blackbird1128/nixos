@@ -23,6 +23,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    beets
     bluetuith
     dust
     emacs
@@ -31,15 +32,19 @@
     firefox
     gh
     kitty
+    maim
     mcfly
     opam
+    pass
     starship
     tealdeer
+    (tesseract.override { enableLanguages = [ "eng" "fra" ]; })
     texliveFull
     tree-sitter
     television
     bat
     caffeine-ng
+    yt-dlp
     zotero
   ];
 
