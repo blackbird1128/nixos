@@ -57,7 +57,7 @@
       HandleLidSwitchExternalPower = "suspend-then-hibernate";
       HandleLidSwitchDocked = "suspend-then-hibernate";
       IdleAction = "suspend-then-hibernate";
-      IdleActionSec = "5min";
+      IdleActionSec = "10min";
     };
   };
   # systemd.sleep.extraConfig = ''
