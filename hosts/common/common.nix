@@ -45,6 +45,14 @@ in
   networking.firewall.enable = true;
 
   boot.kernelModules = [ "ntsync" ];
+
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+
+  services.smartd.enable = true;
+  services.fwupd.enable = true;
   
   # services.dnscrypt-proxy = {
   #   enable = true;
@@ -195,6 +203,7 @@ in
     gnumake
     gvfs
     harfbuzz
+    smartmontools
     hunspell
     hunspellDicts.en-us
     hunspellDicts.en-gb-ise
