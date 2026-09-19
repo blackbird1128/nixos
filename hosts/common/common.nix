@@ -139,6 +139,7 @@ in
     packages = with pkgs; [
       noto-fonts
       noto-fonts-color-emoji
+      (iosevka-bin.override { variant = "Aile"; })
       nerd-fonts.iosevka
       jetbrains-mono
     ];
