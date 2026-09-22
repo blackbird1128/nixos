@@ -53,6 +53,14 @@ in
 
   services.smartd.enable = true;
   services.fwupd.enable = true;
+
+  security.polkit.enable = true;
+
+  zramSwap = {
+     enable = true;
+     algorithm = "zstd";
+     memoryPercent = 25;
+  };
   
   # services.dnscrypt-proxy = {
   #   enable = true;
@@ -269,7 +277,6 @@ in
 
   programs.dconf.enable = true;
 
-  services.hardware.openrgb.enable = true;
   services.xserver = {
     enable = true;
     dpi = 104;
@@ -308,7 +315,6 @@ in
     openFirewall = true;
   };
 
-  
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
