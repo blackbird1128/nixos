@@ -1,5 +1,25 @@
 { config, pkgs, ... }:
 
+let
+  audio-control = pkgs.writeShellApplication {
+    name = "audio-control";
+    runtimeInputs = with pkgs; [
+      dunst
+      gawk
+      wireplumber
+    ];
+    text = builtins.readFile ./scripts/audio-control.sh;
+  };
+
+  brightness-control = pkgs.writeShellApplication {
+    name = "brightness-control";
+    runtimeInputs = with pkgs; [
+      brightnessctl
+      dunst
+    ];
+    text = builtins.readFile ./scripts/brightness-control.sh;
+  };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -46,6 +66,8 @@
     caffeine-ng
     yt-dlp
     zotero
+    audio-control
+    brightness-control
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

@@ -40,6 +40,8 @@
   programs.gamemode.enableRenice = true;
   programs.gamescope.enable = true;
 
+  services.hardware.openrgb.enable = true;
+
   services.power-profiles-daemon.enable = true;
   powerManagement = {
     enable = true;
