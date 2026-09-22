@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 let
+  ocr-tesseract = pkgs.tesseract.override {
+    enableLanguages = [ "eng" "fra" ];
+  };
+
   audio-control = pkgs.writeShellApplication {
     name = "audio-control";
     runtimeInputs = with pkgs; [
@@ -18,6 +22,36 @@ let
       dunst
     ];
     text = builtins.readFile ./scripts/brightness-control.sh;
+  };
+
+  player-status = pkgs.writeShellApplication {
+    name = "player-status";
+    runtimeInputs = with pkgs; [ playerctl ];
+    text = builtins.readFile ./scripts/player-status.sh;
+  };
+
+  screen-lock = pkgs.writeShellApplication {
+    name = "screen-lock";
+    runtimeInputs = with pkgs; [
+      coreutils
+      i3lock-color
+      imagemagick
+    ];
+    text = builtins.readFile ./scripts/screen-lock.sh;
+  };
+
+  smart-ocr = pkgs.writeShellApplication {
+    name = "smart-ocr";
+    runtimeInputs = with pkgs; [
+      coreutils
+      imagemagick
+      libnotify
+      maim
+      ocr-tesseract
+      slop
+      xclip
+    ];
+    text = builtins.readFile ./scripts/smart-ocr.sh;
   };
 in
 {
@@ -58,7 +92,7 @@ in
     pass
     starship
     tealdeer
-    (tesseract.override { enableLanguages = [ "eng" "fra" ]; })
+    ocr-tesseract
     texliveFull
     tree-sitter
     television
@@ -68,6 +102,9 @@ in
     zotero
     audio-control
     brightness-control
+    player-status
+    screen-lock
+    smart-ocr
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
