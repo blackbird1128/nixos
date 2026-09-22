@@ -128,6 +128,39 @@
   programs.htop.enable = true;
   programs.ripgrep.enable = true;
 
+  systemd.user.services = {
+    network-manager-applet = {
+      Unit = {
+        Description = "NetworkManager applet";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+        Restart = "on-failure";
+      };
+
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+
+    polkit-gnome-agent = {
+      Unit = {
+        Description = "Polkit GNOME authentication agent";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart =
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+      };
+
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   services.picom = {
     enable = true;
     backend = "glx";
