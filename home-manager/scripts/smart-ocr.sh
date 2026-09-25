@@ -29,8 +29,17 @@ else
   psm=3
 fi
 
-if tesseract "$image" stdout -l eng+fra --oem 1 --psm "$psm" \
-  | xclip -selection clipboard; then
+if ! recognized_text="$(tesseract "$image" stdout -l eng+fra --oem 1 --psm "$psm")"; then
+  notify-send --urgency=critical "OCR failed" "No text was copied."
+  exit 1
+fi
+
+if [[ -z "${recognized_text//[[:space:]]/}" ]]; then
+  notify-send "OCR found no text" "The clipboard was left unchanged."
+  exit 0
+fi
+
+if printf '%s' "$recognized_text" | xclip -selection clipboard; then
   notify-send "OCR done with --psm $psm (text copied to clipboard ✨)"
 else
   notify-send --urgency=critical "OCR failed" "No text was copied."
