@@ -2,8 +2,8 @@
 
 let
   codex-src = builtins.fetchTarball {
-    url = "https://github.com/sadjow/codex-cli-nix/archive/5473399086c810de9b985ec165dcb229106ed48d.tar.gz";
-    sha256 = "1dd186icinx8960sld62ahjdrhkxkjscds853iz8966qlgf9g5ls";
+    url = "https://github.com/sadjow/codex-cli-nix/archive/a7ed999eef6da100f126543dd5ab8817ddf003e6.tar.gz";
+    sha256 = "13x94rh0s456zk9yy3dwgyfz71bp282i4mw3flx6vsvf8f195870";
   };
 
   codex = pkgs.callPackage "${codex-src}/package.nix" { };
@@ -250,6 +250,7 @@ in
     graphviz
     ninja
     codex
+    opencode
   ];
 
   programs.thunar  = {
